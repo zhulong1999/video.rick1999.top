@@ -2,12 +2,15 @@
 	<div class="home">
 		<el-container>
 			<Nav></Nav>
-			<div class="span"></div>
-			<Banner></Banner>
-			<div class="span"></div>
-			<el-main><VideoList></VideoList></el-main>
-			<el-footer>
-			</el-footer>
+			<Banner class="banner"></Banner>
+			<el-main>
+				<VideoList :data="video" title="影院热映" titleType="danger"></VideoList>
+				<br />
+				<VideoList :data="video" title="最新视频" titleType="success"></VideoList>
+				<br />
+				<Links class="links"></Links>
+			</el-main>
+			<el-footer><Footer></Footer></el-footer>
 		</el-container>
 	</div>
 </template>
@@ -20,17 +23,42 @@ import Nav from '@/components/nav.vue';
 import Banner from '@/components/banner.vue';
 //影视列表
 import VideoList from '@/components/videoList.vue';
+//友情链接
+import Links from '@/components/Links.vue';
+//底部信息
+import Footer from '@/components/footer.vue';
 export default {
 	components: {
 		Nav,
 		Banner,
-		VideoList
+		VideoList,
+		Links,
+		Footer
+	},
+	data() {
+		return {
+			video: ''
+		};
+	},
+	created() {
+		let _this = this;
+		_this
+			.$axios({
+				method: 'get',
+				url: '/data/video_list.json'
+			})
+			.then(msg => {
+				_this.video = msg.data;
+			});
 	}
 };
 </script>
 <style scoped="scoped" lang="less">
-.span {
-	width: 100%;
-	height: 20px;
+.banner {
+	margin-top: 80px;
+	margin-bottom: 20px;
+}
+.links {
+	margin-top: 20px;
 }
 </style>
