@@ -1,5 +1,5 @@
 <template>
-	<div id="Links">
+	<el-card id="Links">
 		<el-row class="links_title">
 			<el-col :span="2">
 				<el-tag  size="small" hit effect="plain">友情链接</el-tag>
@@ -10,7 +10,7 @@
 				<el-link type='primary' :href='item.link'>{{item.title}}</el-link>
 			</el-col>
 		</el-row>
-	</div>
+	</el-card>
 </template>
 
 <script>
